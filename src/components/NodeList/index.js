@@ -5,13 +5,11 @@ class NodeListComponent extends Component {
 
 
   addNode = (evt, nodeObj) => {
-    debugger
     this.props.addNode(nodeObj);
 
   }
 
   addSubNode = (evt, nodeObj) => {
-    debugger
     this.props.addSubNode(nodeObj);
   }
 
