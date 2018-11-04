@@ -19,7 +19,6 @@ const appReducers = (state = initialState, action) => {
         
         case "ADD_NODE":
             currObj = action.payload.parent.length ? newNodes[action.payload.parent[0]] : null;  
-            debugger      
             if(action.payload.parent && action.payload.parent.length) {
                 action.payload.parent.forEach((ptr, idx) => {
                     if(idx > 0 && idx <action.payload.parent.length - 1) {
@@ -32,7 +31,7 @@ const appReducers = (state = initialState, action) => {
                 currObj[nodeid] = {
                     name: `Node ${nodeid}`,
                     id: nodeid,
-                    parent: [...action.payload.parent, action.payload.id],
+                    parent: [...action.payload.parent],
                     children: {}                                        
                 }
             }
@@ -40,14 +39,14 @@ const appReducers = (state = initialState, action) => {
                 newNodes[nodeid] = {
                     name: `Node ${nodeid}`,
                     id: nodeid,
-                    parent: [...action.payload.parent, action.payload.id],
+                    parent: [...action.payload.parent],
                     children: {}                                        
                 }
             }
             return Object.assign({}, state, { nodes: newNodes});
             
         case "ADD_SUB_NODE": 
-                let currObj = action.payload.parent.length ? newNodes[action.payload.parent[0]] : newNodes[action.payload.id];
+                currObj = action.payload.parent.length ? newNodes[action.payload.parent[0]] : newNodes[action.payload.id];
                 if(action.payload.parent && action.payload.parent.length) {
                     action.payload.parent.forEach((ptr, idx) => {
                         if(idx > 0) {
