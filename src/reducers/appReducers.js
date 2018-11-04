@@ -1,15 +1,19 @@
 const initialState = {
-    nodes: {
+    
+    nodes: sessionStorage.getItem("nodes")
+    ?
+    JSON.parse(sessionStorage.getItem("nodes"))
+    :
+    {
         1363: {
             name: "Node 1363",
             id: 1363,
             parent: [],
-            children: {
-                
-            }          
+            children: {}          
         }
+        
     }
-}
+};
 
 const appReducers = (state = initialState, action) => {
 

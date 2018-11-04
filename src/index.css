@@ -6,4 +6,30 @@ body {
   background: #ddd;
 }
 
+li {
+  margin: 5px 0;
+  font-weight: bold;
+}
+
+.hide {
+  display: none;
+}
+
+.btn-comp {
+  padding: 10px;
+  margin: 0 5px;
+}
+
+.top-right {
+  position: absolute;
+  top: 10px
+}
+
+.expand-btn {
+  right: 10px;
+}
+
+.save-btn {
+  right: 100px;
+}
 

@@ -4,7 +4,7 @@ import configureStore from './store';
 
 import './index.css';
 
-import App from './containers/App';
+import App from './components/App';
 
 const store = configureStore();
 
