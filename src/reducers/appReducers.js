@@ -21,7 +21,7 @@ const appReducers = (state = initialState, action) => {
             currObj = action.payload.parent.length ? newNodes[action.payload.parent[0]] : null;  
             if(action.payload.parent && action.payload.parent.length) {
                 action.payload.parent.forEach((ptr, idx) => {
-                    if(idx > 0 && idx <action.payload.parent.length - 1) {
+                    if(idx > 0 && idx < action.payload.parent.length - 1) {
                         currObj = currObj[ptr];
                     }
                 });
@@ -50,11 +50,12 @@ const appReducers = (state = initialState, action) => {
                 if(action.payload.parent && action.payload.parent.length) {
                     action.payload.parent.forEach((ptr, idx) => {
                         if(idx > 0) {
-                            currObj = currObj[ptr];
+                            currObj = currObj["children"][ptr];
                         }
                     });
                 }
-                nodeid = Math.floor(Math.random()*9000 + 1000);                
+                nodeid = Math.floor(Math.random()*9000 + 1000);   
+                currObj = action.payload.parent.length ? currObj["children"][action.payload.id] : currObj;                
                 currObj["children"][nodeid] = {
                     name: `Node ${nodeid}`,
                     id: nodeid,
