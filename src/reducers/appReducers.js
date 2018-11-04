@@ -21,18 +21,20 @@ const appReducers = (state = initialState, action) => {
             currObj = action.payload.parent.length ? newNodes[action.payload.parent[0]] : null;  
             if(action.payload.parent && action.payload.parent.length) {
                 action.payload.parent.forEach((ptr, idx) => {
-                    if(idx > 0 && idx < action.payload.parent.length - 1) {
-                        currObj = currObj[ptr];
+                    if(idx > 0) {
+                        currObj = currObj["children"][ptr];
                     }
                 });
             }
             nodeid = Math.floor(Math.random()*9000 + 1000);  
-            if(currObj) {           
-                currObj[nodeid] = {
-                    name: `Node ${nodeid}`,
-                    id: nodeid,
-                    parent: [...action.payload.parent],
-                    children: {}                                        
+            if(action.payload.parent.length) {
+                if(currObj) {           
+                    currObj["children"][nodeid] = {
+                        name: `Node ${nodeid}`,
+                        id: nodeid,
+                        parent: [...action.payload.parent],
+                        children: {}                                        
+                    }
                 }
             }
             else {
@@ -42,6 +44,7 @@ const appReducers = (state = initialState, action) => {
                     parent: [...action.payload.parent],
                     children: {}                                        
                 }
+                
             }
             return Object.assign({}, state, { nodes: newNodes});
             
@@ -70,12 +73,17 @@ const appReducers = (state = initialState, action) => {
             currObj = action.payload.parent.length ? newNodes[action.payload.parent[0]] : newNodes[action.payload.id];
             if(action.payload.parent && action.payload.parent.length) {
                 action.payload.parent.forEach((ptr, idx) => {
-                    if(idx > 0 && idx <action.payload.parent.length - 1) {
-                        currObj = currObj[ptr];
+                    if(idx > 0) {
+                        currObj = currObj["children"][ptr];
                     }
                 });
             }
-            delete newNodes[currObj];
+            if( action.payload.parent.length ) {
+                delete currObj["children"][action.payload.id];
+            }
+            else {
+                delete newNodes[action.payload.id];                
+            }
             return Object.assign({}, state, { nodes: newNodes});
                        
         default:
